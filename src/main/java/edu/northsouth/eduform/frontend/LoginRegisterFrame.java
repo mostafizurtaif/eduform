@@ -11,6 +11,7 @@ import edu.northsouth.eduform.backend.users.Student;
 import edu.northsouth.eduform.backend.users.Teacher;
 import edu.northsouth.eduform.backend.users.User;
 import edu.northsouth.eduform.backend.users.UserStorage;
+import edu.northsouth.eduform.frontend.dashboard.student.StudentDashboard;
 import edu.northsouth.eduform.frontend.dashboard.teacher.TeacherDashboard;
 import java.io.IOException;
 
@@ -90,6 +91,8 @@ public class LoginRegisterFrame {
                 // Open dashboard frame
                 if (teacherRadioBtn.isSelected()) {
                     TeacherDashboard.load(user);
+                } else if (studentRadioBtn.isSelected()) {
+                    StudentDashboard.load(user);
                 }
             }
         });

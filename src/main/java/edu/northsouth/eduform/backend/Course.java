@@ -21,6 +21,15 @@ public class Course implements Serializable {
     private String courseCode;
     private final List<Student> students;
     private final List<Assignment> assignments;
+    private String faculty;
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
 
     public Course(String courseCode) {
         this.courseCode = courseCode;

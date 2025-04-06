@@ -13,7 +13,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Insets;
 import java.io.IOException;
 import javax.swing.*;
 
@@ -23,7 +25,7 @@ import javax.swing.*;
  */
 public class Courses {
 
-    public static JPanel coursesPanel(Teacher teacher, UserStorage<Teacher> crud) {
+    public static JPanel coursesPanel(Teacher teacher, UserStorage<Teacher> crud, JTabbedPane tabbedPane) {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         JPanel headerPanel = new JPanel(null);
@@ -78,22 +80,54 @@ public class Courses {
                 dropBtn.addActionListener(e -> {
                     try {
                         teacher.dropCourseById(course.getCourseCode());
-                        
+
                         try {
                             crud.save(teacher);
                         } catch (IOException error) {
                             System.out.println(error.getMessage());
                         }
-                        
+
                         Container parent = mainPanel.getParent();
                         parent.removeAll();
-                        parent.add(coursesPanel(teacher, crud));
+                        parent.add(coursesPanel(teacher, crud, tabbedPane));
                         parent.revalidate();
                         parent.repaint();
                     } catch (NotFoundException error) {
                         System.out.println(error.getMessage());
                     }
 
+                });
+
+                studentsBtn.addActionListener(e -> {
+                    String tabTitle = course.getCourseCode() + " - Students";
+
+                    for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+                        if (tabbedPane.getTitleAt(i).equals(tabTitle)) {
+                            tabbedPane.setSelectedIndex(i);
+                            return;
+                        }
+                    }
+
+                    JPanel studentsPanel = Students.studentsPanel(teacher, crud, course, tabbedPane);
+
+                    tabbedPane.addTab(tabTitle, studentsPanel);
+                    int tabIndex = tabbedPane.indexOfTab(tabTitle);
+
+                    JPanel tabHeader = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+                    tabHeader.setOpaque(false);
+                    JLabel tabLabel = new JLabel(tabTitle);
+                    JButton closeButton = new JButton("x");
+                    closeButton.setMargin(new Insets(0, 0, 0, 0));
+                    closeButton.setFont(new Font("Arial", Font.PLAIN, 10));
+                    closeButton.addActionListener(evt -> {
+                        tabbedPane.remove(tabIndex);
+                    });
+
+                    tabHeader.add(tabLabel);
+                    tabHeader.add(closeButton);
+
+                    tabbedPane.setTabComponentAt(tabIndex, tabHeader);
+                    tabbedPane.setSelectedIndex(tabIndex);
                 });
 
                 // Add the bordered row panel to contentPanel
@@ -124,7 +158,7 @@ public class Courses {
 
                 Container parent = mainPanel.getParent();
                 parent.removeAll();
-                parent.add(coursesPanel(teacher, crud));
+                parent.add(coursesPanel(teacher, crud, tabbedPane));
                 parent.revalidate();
                 parent.repaint();
             }

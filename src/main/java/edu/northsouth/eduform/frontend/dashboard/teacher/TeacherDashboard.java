@@ -21,7 +21,7 @@ public class TeacherDashboard {
         JTabbedPane tabbedPane = new JTabbedPane();
 
         tabbedPane.addTab("Profile", new JScrollPane(Profile.profilePanel(teacher, crud)));
-        tabbedPane.addTab("Courses", new JScrollPane(Courses.coursesPanel(teacher, crud)));
+        tabbedPane.addTab("Courses", new JScrollPane(Courses.coursesPanel(teacher, crud, tabbedPane)));
         
         frame.add(tabbedPane);
 

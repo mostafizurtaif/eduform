@@ -61,7 +61,16 @@ public class User implements Serializable, UserIdentifiable {
     public List<Course> getCourses() {
         return new ArrayList<>(courses);
     }
-
+    
+    public Course getCourseById(String courseCode) throws NotFoundException {
+        for (Course course : courses) {
+            if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
+                return course;
+            }
+        }
+        throw new NotFoundException("No course found with course code: " + courseCode);
+    }
+    
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }

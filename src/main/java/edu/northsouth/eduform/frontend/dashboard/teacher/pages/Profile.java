@@ -26,7 +26,7 @@ public class Profile {
         JTextField nameField = new JTextField();
         nameField.setText(teacher.getName());
 
-        nameField.setBounds(padding, nameLabel.getY() + nameLabel.getHeight() + 5, 200, 30);
+        nameField.setBounds(padding, nameLabel.getY() + nameLabel.getHeight() + 5, 275, 30);
         panel.add(nameField);
 
         JLabel userIdLabel = new JLabel("ID: ");
@@ -35,7 +35,7 @@ public class Profile {
 
         JTextField userIdField = new JTextField();
         userIdField.setText(teacher.getId());
-        userIdField.setBounds(padding, userIdLabel.getY() + userIdLabel.getHeight() + 5, 200, 30);
+        userIdField.setBounds(padding, userIdLabel.getY() + userIdLabel.getHeight() + 5, 275, 30);
         userIdField.setEnabled(false);
         panel.add(userIdField);
 

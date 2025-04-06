@@ -5,6 +5,7 @@
 package edu.northsouth.eduform.frontend.dashboard.teacher.pages;
 
 import edu.northsouth.eduform.backend.Course;
+import edu.northsouth.eduform.backend.exceptions.NotFoundException;
 import edu.northsouth.eduform.backend.users.Teacher;
 import edu.northsouth.eduform.backend.users.User;
 import edu.northsouth.eduform.backend.users.UserStorage;
@@ -58,7 +59,7 @@ public class Courses {
                 ));
                 courseRowPanel.setBounds(padding, yPosition, 570, 30); // Adjust width as needed
 
-                JLabel courseLabel = new JLabel(course.getCourseCode());
+                JLabel courseLabel = new JLabel(course.getCourseCode().toUpperCase());
                 courseLabel.setBounds(5, 5, 250, 20); // Position relative to courseRowPanel
                 courseRowPanel.add(courseLabel);
 
@@ -73,6 +74,27 @@ public class Courses {
                 JButton dropBtn = new JButton("Drop");
                 dropBtn.setBounds(490, 5, 70, 20);
                 courseRowPanel.add(dropBtn);
+
+                dropBtn.addActionListener(e -> {
+                    try {
+                        teacher.dropCourseById(course.getCourseCode());
+                        
+                        try {
+                            crud.save(teacher);
+                        } catch (IOException error) {
+                            System.out.println(error.getMessage());
+                        }
+                        
+                        Container parent = mainPanel.getParent();
+                        parent.removeAll();
+                        parent.add(coursesPanel(teacher, crud));
+                        parent.revalidate();
+                        parent.repaint();
+                    } catch (NotFoundException error) {
+                        System.out.println(error.getMessage());
+                    }
+
+                });
 
                 // Add the bordered row panel to contentPanel
                 contentPanel.add(courseRowPanel);

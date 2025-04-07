@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package edu.northsouth.eduform.frontend.dashboard.student.pages;
 
 import edu.northsouth.eduform.backend.Assignment;
@@ -76,7 +72,6 @@ public class Assignments {
                     File sourceDir = new File("./src/main/java/edu/northsouth/eduform/backend/database/assignments/");
                     File sourceFile = new File(sourceDir, assignmentName);
 
-                    // Check if source file exists
                     if (!sourceFile.exists()) {
                         JOptionPane.showMessageDialog(mainPanel,
                                 "Assignment file not found: " + assignmentName,
@@ -94,10 +89,8 @@ public class Assignments {
                         File targetFile = fileChooser.getSelectedFile();
 
                         try {
-                            // Copy the file to user's selected location
                             Files.copy(sourceFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-                            // Show success message
                             JOptionPane.showMessageDialog(mainPanel,
                                     "Assignment downloaded successfully to:\n" + targetFile.getAbsolutePath());
 

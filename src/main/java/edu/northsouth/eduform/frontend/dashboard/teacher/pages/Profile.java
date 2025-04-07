@@ -1,7 +1,6 @@
 package edu.northsouth.eduform.frontend.dashboard.teacher.pages;
 
 import edu.northsouth.eduform.backend.users.Teacher;
-import edu.northsouth.eduform.backend.users.User;
 import edu.northsouth.eduform.backend.users.UserStorage;
 import javax.swing.*;
 import java.awt.*;

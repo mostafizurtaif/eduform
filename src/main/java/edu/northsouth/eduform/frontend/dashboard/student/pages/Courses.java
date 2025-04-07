@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package edu.northsouth.eduform.frontend.dashboard.student.pages;
 
 import edu.northsouth.eduform.backend.Course;
@@ -9,7 +5,6 @@ import edu.northsouth.eduform.backend.exceptions.NotFoundException;
 import edu.northsouth.eduform.backend.users.Student;
 import edu.northsouth.eduform.backend.users.Teacher;
 import edu.northsouth.eduform.backend.users.UserStorage;
-import edu.northsouth.eduform.frontend.dashboard.teacher.pages.Students;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -68,10 +63,10 @@ public class Courses {
                         BorderFactory.createLineBorder(Color.LIGHT_GRAY),
                         BorderFactory.createEmptyBorder(5, 5, 5, 5)
                 ));
-                courseRowPanel.setBounds(padding, yPosition, 570, 30); // Adjust width as needed
+                courseRowPanel.setBounds(padding, yPosition, 570, 30); 
 
                 JLabel courseLabel = new JLabel(course.getCourseCode().toUpperCase());
-                courseLabel.setBounds(5, 5, 250, 20); // Position relative to courseRowPanel
+                courseLabel.setBounds(5, 5, 250, 20); 
                 courseRowPanel.add(courseLabel);
 
                 JButton assignmentsBtn = new JButton("Assignments");
@@ -84,21 +79,17 @@ public class Courses {
 
                 dropBtn.addActionListener(e -> {
                     try {
-                        // Remove from student first
                         student.dropCourseById(course.getCourseCode());
 
-                        // Remove from teacher's course
                         UserStorage<Teacher> teacherCrud = new UserStorage<>(Teacher.class);
                         Teacher teacher = teacherCrud.load(course.getFaculty());
 
                         Course teacherCourse = teacher.getCourseById(course.getCourseCode());
-                        teacherCourse.removeStudentById(student.getId()); // You'll need this method
+                        teacherCourse.removeStudentById(student.getId()); 
 
-                        // Save both
                         crud.save(student);
                         teacherCrud.save(teacher);
 
-                        // Refresh UI
                         Container parent = mainPanel.getParent();
                         parent.removeAll();
                         parent.add(coursesPanel(student, crud, tabbedPane));
@@ -167,10 +158,9 @@ public class Courses {
                     }
                 });
 
-                // Add the bordered row panel to contentPanel
                 contentPanel.add(courseRowPanel);
 
-                yPosition += 40; // Increase yPosition by row height + padding
+                yPosition += 40;
             }
         }
         contentPanel.setPreferredSize(new Dimension(400, yPosition));
@@ -182,7 +172,6 @@ public class Courses {
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         addCourseBtn.addActionListener(e -> {
-            // Create a panel with two fields
             JPanel inputPanel = new JPanel(new GridLayout(2, 2));
 
             JLabel courseCodeLabel = new JLabel("Course Code:");
@@ -213,24 +202,18 @@ public class Courses {
                         UserStorage<Teacher> teacherCrud = new UserStorage<>(Teacher.class);
                         Teacher teacher = teacherCrud.load(facultyInitials);
 
-                        // Find the course in teacher's list
                         Course teacherCourse = teacher.getCourseById(courseCode);
 
-                        // Create a NEW course for the student with the same details
                         Course studentCourse = new Course(teacherCourse.getCourseCode());
                         studentCourse.setFaculty(facultyInitials);
 
-                        // Add student to teacher's course
                         teacherCourse.addStudent(student);
 
-                        // Add course to student
                         student.addCourse(studentCourse);
 
-                        // Save both
                         crud.save(student);
                         teacherCrud.save(teacher);
 
-                        // Refresh UI
                         Container parent = mainPanel.getParent();
                         parent.removeAll();
                         parent.add(coursesPanel(student, crud, tabbedPane));

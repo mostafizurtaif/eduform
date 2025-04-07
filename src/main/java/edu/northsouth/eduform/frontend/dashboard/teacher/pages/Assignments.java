@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package edu.northsouth.eduform.frontend.dashboard.teacher.pages;
 
 import edu.northsouth.eduform.backend.Assignment;
@@ -16,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -121,7 +116,6 @@ public class Assignments {
                     Assignment assignment = new Assignment(assignmentName, "ASSIGN_" + (course.getAssignments().size() + 1));
                     course.addAssignment(assignment);
 
-                    // Update the course in teacher's list
                     for (int i = 0; i < teacher.getCourses().size(); i++) {
                         if (teacher.getCourses().get(i).getCourseCode().equalsIgnoreCase(course.getCourseCode())) {
                             teacher.getCourses().set(i, course);
@@ -136,7 +130,6 @@ public class Assignments {
                         error.printStackTrace();
                     }
 
-                    // Refresh just this panel instead of all tabs
                     int tabIndex = tabbedPane.indexOfComponent(mainPanel);
                     tabbedPane.setComponentAt(tabIndex, assignmentsPanel(teacher, crud, course, tabbedPane));
 

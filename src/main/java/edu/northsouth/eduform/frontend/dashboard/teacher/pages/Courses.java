@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package edu.northsouth.eduform.frontend.dashboard.teacher.pages;
 
 import edu.northsouth.eduform.backend.Course;
 import edu.northsouth.eduform.backend.exceptions.NotFoundException;
 import edu.northsouth.eduform.backend.users.Teacher;
-import edu.northsouth.eduform.backend.users.User;
 import edu.northsouth.eduform.backend.users.UserStorage;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -53,20 +48,19 @@ public class Courses {
             yPosition += noCoursesLabel.getHeight() + padding;
         } else {
             for (Course course : teacher.getCourses()) {
-                // Create a panel for each course row with border
                 JPanel courseRowPanel = new JPanel(null);
                 courseRowPanel.setBorder(BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(Color.LIGHT_GRAY),
                         BorderFactory.createEmptyBorder(5, 5, 5, 5)
                 ));
-                courseRowPanel.setBounds(padding, yPosition, 570, 30); // Adjust width as needed
+                courseRowPanel.setBounds(padding, yPosition, 570, 30); 
 
                 JLabel courseLabel = new JLabel(course.getCourseCode().toUpperCase());
-                courseLabel.setBounds(5, 5, 250, 20); // Position relative to courseRowPanel
+                courseLabel.setBounds(5, 5, 250, 20);
                 courseRowPanel.add(courseLabel);
 
                 JButton studentsBtn = new JButton("Students");
-                studentsBtn.setBounds(260, 5, 100, 20); // Adjust positions
+                studentsBtn.setBounds(260, 5, 100, 20);
                 courseRowPanel.add(studentsBtn);
 
                 JButton assignmentsBtn = new JButton("Assignments");
@@ -162,10 +156,9 @@ public class Courses {
                     tabbedPane.setSelectedIndex(tabIndex);
                 });
 
-                // Add the bordered row panel to contentPanel
                 contentPanel.add(courseRowPanel);
 
-                yPosition += 40; // Increase yPosition by row height + padding
+                yPosition += 40; 
             }
         }
         contentPanel.setPreferredSize(new Dimension(400, yPosition));

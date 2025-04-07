@@ -6,7 +6,6 @@ import edu.northsouth.eduform.backend.users.UserStorage;
 import edu.northsouth.eduform.frontend.dashboard.teacher.pages.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 
 public class TeacherDashboard {

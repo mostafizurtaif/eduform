@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package edu.northsouth.eduform.frontend.dashboard.teacher.pages;
 
 import edu.northsouth.eduform.backend.Course;
@@ -11,11 +7,8 @@ import edu.northsouth.eduform.backend.users.UserStorage;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Insets;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -55,55 +48,14 @@ public class Students {
                         BorderFactory.createLineBorder(Color.LIGHT_GRAY),
                         BorderFactory.createEmptyBorder(5, 5, 5, 5)
                 ));
-                studentRowPanel.setBounds(padding, yPosition, 570, 30); // Adjust width as needed
+                studentRowPanel.setBounds(padding, yPosition, 570, 30);
 
                 JLabel studentLabel = new JLabel(student.getName());
-                studentLabel.setBounds(5, 5, 250, 20); // Position relative to courseRowPanel
+                studentLabel.setBounds(5, 5, 250, 20); 
                 studentRowPanel.add(studentLabel);
-
-                JButton gradeBtn = new JButton("Grade");
-                gradeBtn.setBounds(260, 5, 100, 20); // Adjust positions
-                studentRowPanel.add(gradeBtn);
-
-                gradeBtn.addActionListener(e -> {
-                    String tabTitle = course.getCourseCode() + " - Students";
-
-                    for (int i = 0; i < tabbedPane.getTabCount(); i++) {
-                        if (tabbedPane.getTitleAt(i).equals(tabTitle)) {
-                            tabbedPane.setSelectedIndex(i);
-                            return;
-                        }
-                    }
-
-                    JPanel studentsPanel = new JPanel();
-                    studentsPanel.add(new JLabel("Students for " + course.getCourseCode()));
-
-                    // Add the tab with a close button
-                    tabbedPane.addTab(tabTitle, studentsPanel);
-                    int tabIndex = tabbedPane.indexOfTab(tabTitle);
-
-                    // Create tab header with close button
-                    JPanel tabHeader = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-                    tabHeader.setOpaque(false);
-                    JLabel tabLabel = new JLabel(tabTitle);
-                    JButton closeButton = new JButton("x");
-                    closeButton.setMargin(new Insets(0, 5, 0, 0));
-                    closeButton.setFont(new Font("Arial", Font.PLAIN, 10));
-                    closeButton.addActionListener(evt -> {
-                        tabbedPane.remove(tabIndex);
-                    });
-
-                    tabHeader.add(tabLabel);
-                    tabHeader.add(closeButton);
-
-                    tabbedPane.setTabComponentAt(tabIndex, tabHeader);
-                    tabbedPane.setSelectedIndex(tabIndex);
-                });
-
-                // Add the bordered row panel to contentPanel
                 contentPanel.add(studentRowPanel);
 
-                yPosition += 40; // Increase yPosition by row height + padding
+                yPosition += 40; 
             }
         }
         

@@ -68,19 +68,23 @@ public class Assignments {
 
                 assignmentDownloadBtn.addActionListener(e -> {
                     String assignmentName = assignment.getAssignmentName();
-
                     File sourceDir = new File("./src/main/java/edu/northsouth/eduform/backend/database/assignments/");
-                    File sourceFile = new File(sourceDir, assignmentName);
 
-                    if (!sourceFile.exists()) {
+                    File[] matchingFiles = sourceDir.listFiles((dir, name)
+                            -> name.startsWith(assignmentName)
+                    );
+
+                    if (matchingFiles == null || matchingFiles.length == 0) {
                         JOptionPane.showMessageDialog(mainPanel,
                                 "Assignment file not found: " + assignmentName,
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
 
+                    File sourceFile = matchingFiles[0];
+
                     JFileChooser fileChooser = new JFileChooser();
-                    fileChooser.setSelectedFile(new File(assignmentName));
+                    fileChooser.setSelectedFile(new File(sourceFile.getName()));
                     fileChooser.setDialogTitle("Choose download location");
 
                     int userSelection = fileChooser.showSaveDialog(mainPanel);
@@ -90,10 +94,8 @@ public class Assignments {
 
                         try {
                             Files.copy(sourceFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
                             JOptionPane.showMessageDialog(mainPanel,
                                     "Assignment downloaded successfully to:\n" + targetFile.getAbsolutePath());
-
                         } catch (IOException ex) {
                             ex.printStackTrace();
                             JOptionPane.showMessageDialog(mainPanel,

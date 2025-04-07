@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -75,8 +76,7 @@ public class Assignments {
                 assingmentDetailsBtn.addActionListener(e -> {
                     JOptionPane.showMessageDialog(contentPanel,
                             "Title: " + assignment.getAssignmentName() + "\n"
-                            + "Assignment ID: " + assignment.getAssignmentId().toUpperCase() + "\n"
-                            + "Graded: " + (assignment.isIsGraded() ? "Yes" : "No"));
+                            + "Assignment ID: " + assignment.getAssignmentId().toUpperCase());
                 });
 
                 contentPanel.add(assignmentRowPanel);
@@ -109,8 +109,20 @@ public class Assignments {
 
                 try {
                     LocalDate today = LocalDate.now();
-                    String assignmentName = "ASSIGN_" + today.format(DateTimeFormatter.ISO_DATE) + "No." + (course.getAssignments().size() + 1);
-                    Files.copy(selectedFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    String assignmentName = "ASSIGN-" + today.format(DateTimeFormatter.ISO_DATE) + "-" + (course.getAssignments().size() + 1);
+
+                    String originalFileName = selectedFile.getName();
+                    String fileExtension = "";
+                    int lastDotIndex = originalFileName.lastIndexOf('.');
+                    if (lastDotIndex > 0) {
+                        fileExtension = originalFileName.substring(lastDotIndex);
+                    }
+
+                    Path targetDirectory = targetFile.toPath().getParent(); // Get the directory path
+                    Path newTargetPath = targetDirectory.resolve(assignmentName + fileExtension); // Create new path with assignmentName
+
+                    Files.copy(selectedFile.toPath(), newTargetPath, StandardCopyOption.REPLACE_EXISTING);
+
                     JOptionPane.showMessageDialog(mainPanel, "Assignment uploaded!");
 
                     Assignment assignment = new Assignment(assignmentName, "ASSIGN_" + (course.getAssignments().size() + 1));
@@ -125,7 +137,6 @@ public class Assignments {
 
                     try {
                         crud.save(teacher);
-
                     } catch (IOException error) {
                         error.printStackTrace();
                     }

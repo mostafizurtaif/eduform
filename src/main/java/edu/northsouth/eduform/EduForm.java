@@ -11,12 +11,12 @@ import edu.northsouth.eduform.frontend.dashboard.teacher.TeacherDashboard;
 public class EduForm {
 
     public static void main(String[] args) {
-        LoginRegisterFrame.load();
+//        LoginRegisterFrame.load();
 
-//    User user = new User("mrt", "taifrahman");
-//    TeacherDashboard.load(user);
+    User user = new User("mrt", "taifrahman");
+    TeacherDashboard.load(user);
 
-//    User user = new User("hridoy", "hridoygay");
+//    User user = new User("sunny", "sunny");
 //    StudentDashboard.load(user);
         
     }

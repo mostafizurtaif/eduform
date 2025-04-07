@@ -65,7 +65,6 @@ public class Students {
                 gradeBtn.setBounds(260, 5, 100, 20); // Adjust positions
                 studentRowPanel.add(gradeBtn);
 
-                
                 gradeBtn.addActionListener(e -> {
                     String tabTitle = course.getCourseCode() + " - Students";
 

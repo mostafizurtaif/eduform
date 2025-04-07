@@ -19,8 +19,8 @@ public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private String courseCode;
-    private final List<Student> students;
-    private final List<Assignment> assignments;
+    private final List<Student> students = new ArrayList<>();;
+    private final List<Assignment> assignments = new ArrayList<>();;
     private String faculty;
 
     public String getFaculty() {
@@ -30,11 +30,13 @@ public class Course implements Serializable {
     public void setFaculty(String faculty) {
         this.faculty = faculty;
     }
-
+    
+    public Course() {
+        
+    }
+    
     public Course(String courseCode) {
         this.courseCode = courseCode;
-        this.students = new ArrayList<>();
-        this.assignments = new ArrayList<>();
     }
 
     // ---------- courseCode SECTION: BEGINS ---------- //

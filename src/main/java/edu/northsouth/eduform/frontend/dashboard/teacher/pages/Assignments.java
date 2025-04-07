@@ -8,23 +8,16 @@ import edu.northsouth.eduform.backend.Assignment;
 import edu.northsouth.eduform.backend.Course;
 import edu.northsouth.eduform.backend.users.Teacher;
 import edu.northsouth.eduform.backend.users.UserStorage;
-import static edu.northsouth.eduform.frontend.dashboard.teacher.pages.Courses.coursesPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.Iterator;
-import java.util.ListIterator;
+import java.time.LocalDate;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -32,6 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -103,50 +98,6 @@ public class Assignments {
         mainPanel.add(headerPanel, BorderLayout.NORTH);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-//        addAssignmentBtn.addActionListener(e -> {
-//            JFileChooser fileChooser = new JFileChooser();
-//            int result = fileChooser.showOpenDialog(mainPanel);
-//
-//            if (result == JFileChooser.APPROVE_OPTION) {
-//                File selectedFile = fileChooser.getSelectedFile();
-//                File targetDir = new File("./src/main/java/edu/northsouth/eduform/backend/database/assignments/");
-//
-//                if (!targetDir.exists()) {
-//                    targetDir.mkdirs();
-//                }
-//
-//                File targetFile = new File(targetDir, selectedFile.getName());
-//
-//                try {
-//                    Files.copy(selectedFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//                    JOptionPane.showMessageDialog(mainPanel, "Assignment uploaded!");
-//
-//                    Assignment assignment = new Assignment(selectedFile.getName(), "Assignment#" + course.getAssignments().size() + 1);
-//                    course.addAssignment(assignment);
-//
-//                    ListIterator<Course> iterator = teacher.getCourses().listIterator();
-//
-//                    while (iterator.hasNext()) {
-//                        Course currentCourse = iterator.next();
-//
-//                        if (currentCourse.getCourseCode().equalsIgnoreCase(course.getCourseCode())) {
-//                            iterator.set(course);
-//                        }
-//                    }
-//
-//                    try {
-//                        crud.save(teacher);
-//
-//                    } catch (IOException error) {
-//                        error.printStackTrace();
-//                    }
-//
-//                } catch (IOException ex) {
-//                    ex.printStackTrace();
-//                    JOptionPane.showMessageDialog(mainPanel, "Failed to upload assignment: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//                }
-//            }
-//        });
         addAssignmentBtn.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(mainPanel);
@@ -162,10 +113,12 @@ public class Assignments {
                 File targetFile = new File(targetDir, selectedFile.getName());
 
                 try {
+                    LocalDate today = LocalDate.now();
+                    String assignmentName = "ASSIGN_" + today.format(DateTimeFormatter.ISO_DATE) + "No." + (course.getAssignments().size() + 1);
                     Files.copy(selectedFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     JOptionPane.showMessageDialog(mainPanel, "Assignment uploaded!");
 
-                    Assignment assignment = new Assignment(selectedFile.getName(), "ASSIGN_" + (course.getAssignments().size() + 1));
+                    Assignment assignment = new Assignment(assignmentName, "ASSIGN_" + (course.getAssignments().size() + 1));
                     course.addAssignment(assignment);
 
                     // Update the course in teacher's list
@@ -175,7 +128,7 @@ public class Assignments {
                             break;
                         }
                     }
-                    
+
                     try {
                         crud.save(teacher);
 

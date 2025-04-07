@@ -86,9 +86,9 @@ public class Course implements Serializable {
         return new ArrayList<>(assignments);
     }
 
-    public Assignment getAssignmentById(int assignmentId) throws NotFoundException {
+    public Assignment getAssignmentById(String assignmentId) throws NotFoundException {
         for (Assignment assignment : assignments) {
-            if (assignment.getAssignmentId() == assignmentId) {
+            if (assignment.getAssignmentId().equalsIgnoreCase(assignmentId)) {
                 return assignment;
             }
         }
@@ -99,13 +99,13 @@ public class Course implements Serializable {
         assignments.add(assignment);
     }
 
-    public void removeAssignmentById(int assignmentId) throws NotFoundException {
+    public void removeAssignmentById(String assignmentId) throws NotFoundException {
         Iterator<Assignment> iterator = assignments.iterator();
 
         while (iterator.hasNext()) {
             Assignment assignment = iterator.next();
 
-            if (assignment.getAssignmentId() == assignmentId) {
+            if (assignment.getAssignmentId().equalsIgnoreCase(assignmentId)) {
                 iterator.remove();
                 return;
             }

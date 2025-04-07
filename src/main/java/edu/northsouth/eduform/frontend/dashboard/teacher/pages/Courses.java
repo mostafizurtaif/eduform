@@ -38,8 +38,8 @@ public class Courses {
         headingLabel.setBounds(padding, padding, 200, 40);
         headerPanel.add(headingLabel);
 
-        JButton addCourseBtn = new JButton("Add Course");
-        addCourseBtn.setBounds(padding + headingLabel.getWidth() + 5, padding + 5, 100, 30);
+        JButton addCourseBtn = new JButton("Add");
+        addCourseBtn.setBounds(padding + headingLabel.getWidth() + 5, padding + 5, 70, 30);
         headerPanel.add(addCourseBtn);
 
         JPanel contentPanel = new JPanel(null);
@@ -99,7 +99,7 @@ public class Courses {
                 });
 
                 studentsBtn.addActionListener(e -> {
-                    String tabTitle = course.getCourseCode() + " - Students";
+                    String tabTitle = course.getCourseCode().toUpperCase() + " - Students";
 
                     for (int i = 0; i < tabbedPane.getTabCount(); i++) {
                         if (tabbedPane.getTitleAt(i).equals(tabTitle)) {
@@ -111,6 +111,38 @@ public class Courses {
                     JPanel studentsPanel = Students.studentsPanel(teacher, crud, course, tabbedPane);
 
                     tabbedPane.addTab(tabTitle, studentsPanel);
+                    int tabIndex = tabbedPane.indexOfTab(tabTitle);
+
+                    JPanel tabHeader = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+                    tabHeader.setOpaque(false);
+                    JLabel tabLabel = new JLabel(tabTitle);
+                    JButton closeButton = new JButton("x");
+                    closeButton.setMargin(new Insets(0, 0, 0, 0));
+                    closeButton.setFont(new Font("Arial", Font.PLAIN, 10));
+                    closeButton.addActionListener(evt -> {
+                        tabbedPane.remove(tabIndex);
+                    });
+
+                    tabHeader.add(tabLabel);
+                    tabHeader.add(closeButton);
+
+                    tabbedPane.setTabComponentAt(tabIndex, tabHeader);
+                    tabbedPane.setSelectedIndex(tabIndex);
+                });
+                
+                assignmentsBtn.addActionListener(e -> {
+                    String tabTitle = course.getCourseCode().toUpperCase() + " - Assignments";
+
+                    for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+                        if (tabbedPane.getTitleAt(i).equals(tabTitle)) {
+                            tabbedPane.setSelectedIndex(i);
+                            return;
+                        }
+                    }
+
+                    JPanel assignmentsPanel = Assignments.assignmentsPanel(teacher, crud, course, tabbedPane);
+
+                    tabbedPane.addTab(tabTitle, assignmentsPanel);
                     int tabIndex = tabbedPane.indexOfTab(tabTitle);
 
                     JPanel tabHeader = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));

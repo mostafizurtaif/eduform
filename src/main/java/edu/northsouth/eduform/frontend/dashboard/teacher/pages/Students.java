@@ -5,23 +5,18 @@
 package edu.northsouth.eduform.frontend.dashboard.teacher.pages;
 
 import edu.northsouth.eduform.backend.Course;
-import edu.northsouth.eduform.backend.exceptions.NotFoundException;
 import edu.northsouth.eduform.backend.users.Student;
 import edu.northsouth.eduform.backend.users.Teacher;
 import edu.northsouth.eduform.backend.users.UserStorage;
-import static edu.northsouth.eduform.frontend.dashboard.teacher.pages.Courses.coursesPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Insets;
-import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;

@@ -4,24 +4,24 @@
  */
 package edu.northsouth.eduform.backend;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author Taif
  */
-public class Assignment {
-
+public class Assignment implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String assignmentName;
-    private int assignmentId;
+    private String assignmentId;
     private LocalDateTime dueDateTime;
     private boolean isGraded;
 
-    public Assignment(String assignmentName, int assignmentId, LocalDateTime dueDateTime, boolean isGraded) {
+    public Assignment(String assignmentName, String assignmentId) {
         this.assignmentName = assignmentName;
         this.assignmentId = assignmentId;
-        this.dueDateTime = dueDateTime;
-        this.isGraded = isGraded;
     }
 
     public String getAssignmentName() {
@@ -32,11 +32,11 @@ public class Assignment {
         this.assignmentName = assignmentName;
     }
 
-    public int getAssignmentId() {
+    public String getAssignmentId() {
         return assignmentId;
     }
 
-    public void setAssignmentId(int assignmentId) {
+    public void setAssignmentId(String assignmentId) {
         this.assignmentId = assignmentId;
     }
 
